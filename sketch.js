@@ -6,7 +6,8 @@ var engine, world, backgroundImg, waterSound, backgroundMusic, cannonExplosion;
 var canvas, angle, tower, ground, cannon, boat;
 var balls = [];
 var boats = [];
-
+var isGameOver=false
+var isLaughing=false
 var boatAnimation = [];
 var boatSpritedata, boatSpritesheet;
 
@@ -20,6 +21,7 @@ function preload() {
   boatSpritesheet = loadImage("assets/boat/boat.png");
   brokenBoatSpritedata = loadJSON("assets/boat/broken_boat.json");
   brokenBoatSpritesheet = loadImage("assets/boat/broken_boat.png");
+  cannonexplosions=loadSound("assets/cannon_explosion.mp3")
 }
 
 function setup() {
@@ -142,8 +144,22 @@ function showBoats() {
 //releasing the cannonball on key release
 function keyReleased() {
   if (keyCode === DOWN_ARROW) {
+    cannonExplosions.play()
     balls[balls.length - 1].shoot();
   }
 }
-
+function gameover(){
+  swal(
+    {
+      title:`Gameover`,
+      confirmButtonText:"Play again?"
+    },
+    function(isConfirm)
+    {
+      if(isConfirm){
+        location.reload{}
+      }
+    }
+    )
+}
 
